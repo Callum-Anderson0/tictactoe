@@ -49,5 +49,3 @@ A simple Tic Tac Toe game built with React and Tailwind CSS. This project demons
 
 - **Tailwind CSS:**  
   Utility-first CSS framework used for styling components with responsive design and a modern aesthetic.
-
-## Project Structure

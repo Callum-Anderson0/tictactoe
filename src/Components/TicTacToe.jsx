@@ -6,20 +6,34 @@ function TicTacToe(){
     const [player,setPlayer] = useState("X");
     const [gameState,setGamestate] = useState(["","","","","","","","",""])
     const [winner,setWinner] = useState("");
-    const [text,setText] = useState("");
+    const winningCombos = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]];
+
+    const checkForWinner = () => {
+        for (let combo of winningCombos) {
+          const [a, b, c] = combo;
+          if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+            setWinner(gameState[a]);
+            return;
+          }
+        }
+      };
+    
 
     const convToIndex = (x,y) => {
         return y*3+x;
     }
 
     useEffect(() => {
-        handleGameLogic();
+        checkForWinner();
     },[gameState]);
-
-    useEffect(() => {
-        setText(winner + " WINS!");
-    },[winner])
-
     
     
     const handleClick = (id) => {
@@ -38,44 +52,13 @@ function TicTacToe(){
         }
     }
 
-    const handleGameLogic = () =>{
-        for(let i =0; i < 3; i++){
-            if(gameState[convToIndex(i,0)]==gameState[convToIndex(i,1)] 
-                && gameState[convToIndex(i,1)]==gameState[convToIndex(i,2)]
-                && gameState[convToIndex(i,0)] != ""){
-                    setWinner(gameState[convToIndex(i,0)]);
-                    return;
-                }
-            if(gameState[convToIndex(0,i)]==gameState[convToIndex(1,i)] 
-                && gameState[convToIndex(1,i)]==gameState[convToIndex(2,i)]
-                && gameState[convToIndex(0,i)] != ""){
-                    setWinner(gameState[convToIndex(0,i)]);
-                    return;
-                }
-            if(gameState[convToIndex(0,0)]==gameState[convToIndex(1,1)]
-                && gameState[convToIndex(1,1)]== gameState[convToIndex(2,2)]
-                && gameState[convToIndex(0,0)]!=""){
-                    setWinner(gameState[convToIndex(0,0)]);
-                    return
-                }
-            if(gameState[convToIndex(2,0)]==gameState[convToIndex(1,1)]
-                && gameState[convToIndex(1,1)]== gameState[convToIndex(0,2)]
-                && gameState[convToIndex(2,0)]!=""){
-                    setWinner(gameState[convToIndex(2,0)]);
-                    return
-                }
-        }
-    
-    }
-
     const handleReset= () =>{
         setGamestate(["","","","","","","","",""]);
-        setWinner("")
-
+        setWinner("");
     }
 
     return (
-            <div class="flexbox justify-centre w-full md:w-[768px] bg-gray-900 w- rounded-md">
+            <div class="flexbox justify-center w-full md:w-[768px] bg-gray-900 w- rounded-md">
                 <div class="bg-gray-800 mt-2 mb-4 bottom-4 w-full h-8 text-gray-300 text-center rounded-md">
                     <h1 class="text-lg text-bold">NOUGHTS AND CROSSES</h1>
                 </div>
@@ -83,7 +66,7 @@ function TicTacToe(){
                     <Board handleClick={handleClick} gameState={gameState}></Board>
                 </div>
                 <div class={`fixed ${winner !== "" ? "visible" : "invisible"} top-1/2 left-1/2 -translate-x-1/2 text-center -translate-y-1/2 bg-white shadow-lg p-6 rounded-lg w-64`}>
-                    <p className="WinMessage">{text}</p>
+                    <p>{winner} WINS!</p>
                     <button class="text-centre mt-4 h-8 w-full text-gray-300 bg-gray-800 rounded-md" onClick={handleReset}> RESET</button>
                 </div>
                 <button class="text-centre mt-4 h-8 w-full text-gray-300 bg-gray-800 rounded-md" onClick={handleReset}> RESET</button>

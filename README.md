@@ -6,10 +6,6 @@ A simple Tic Tac Toe game built with React and Tailwind CSS. This project demons
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [License](#license)
 
 ## Features
 

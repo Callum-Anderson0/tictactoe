@@ -5,7 +5,7 @@ import Tile from "./Tile";
 function Board( {handleClick, gameState} ){
 
     return(
-        <div class="bg-gray-700 grid grid-cols-3 gap-4 w-full h-full rounded-md p-8">
+        <div class="bg-gray-800 grid w-full sm:w-[600px] grid-cols-3 gap-4  rounded-md p-8">
                     <Tile id="0" onClick={handleClick} value={gameState[0]}></Tile>
                     <Tile id="1" onClick={handleClick} value={gameState[1]}></Tile>
                     <Tile id="2" onClick={handleClick} value={gameState[2]}></Tile>

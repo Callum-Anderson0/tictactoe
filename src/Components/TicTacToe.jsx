@@ -6,6 +6,7 @@ function TicTacToe(){
     const [player,setPlayer] = useState("X");
     const [gameState,setGamestate] = useState(["","","","","","","","",""])
     const [winner,setWinner] = useState("");
+    const [text,setText] = useState("");
 
     const convToIndex = (x,y) => {
         return y*3+x;
@@ -16,7 +17,7 @@ function TicTacToe(){
     },[gameState]);
 
     useEffect(() => {
-        console.log("the winner is: "+ winner);
+        setText(winner + " WINS!");
     },[winner])
 
     
@@ -70,13 +71,22 @@ function TicTacToe(){
     const handleReset= () =>{
         setGamestate(["","","","","","","","",""]);
         setWinner("")
+
     }
 
     return (
-            <div class="flexbox justify-centre bg-gray-900 w-[700px] rounded-md">
-                <div class="bg-gray-700 mb-4 bottom-4 w-full h-8 text-white text-center rounded-md"><h1 class="text-lg">Tic Tac Toe!</h1></div>
-                <Board handleClick={handleClick} gameState={gameState}></Board>
-                <button class="text-centre mt-4 h-8 w-full text-white bg-gray-700 rounded-md" onClick={handleReset}> reset game</button>
+            <div class="flexbox justify-centre w-full md:w-[768px] bg-gray-900 w- rounded-md">
+                <div class="bg-gray-800 mt-2 mb-4 bottom-4 w-full h-8 text-gray-300 text-center rounded-md">
+                    <h1 class="text-lg text-bold">NOUGHTS AND CROSSES</h1>
+                </div>
+                <div class="flex justify-center">
+                    <Board handleClick={handleClick} gameState={gameState}></Board>
+                </div>
+                <div class={`fixed ${winner !== "" ? "visible" : "invisible"} top-1/2 left-1/2 -translate-x-1/2 text-center -translate-y-1/2 bg-white shadow-lg p-6 rounded-lg w-64`}>
+                    <p className="WinMessage">{text}</p>
+                    <button class="text-centre mt-4 h-8 w-full text-gray-300 bg-gray-800 rounded-md" onClick={handleReset}> RESET</button>
+                </div>
+                <button class="text-centre mt-4 h-8 w-full text-gray-300 bg-gray-800 rounded-md" onClick={handleReset}> RESET</button>
             </div>
     );
 }
